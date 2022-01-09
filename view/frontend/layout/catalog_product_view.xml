@@ -1,0 +1,7 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.stock.sku">
+            <block class="Codilar\Attribute\Block\Attribute" template="Codilar_Attribute::attribute.phtml" name="product.info.left" after="product.info.sku"/>
+        </referenceContainer>
+    </body>
+</page>

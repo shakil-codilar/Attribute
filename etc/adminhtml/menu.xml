@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Codilar_Attribute::main"
+             title="Brand"
+             translate="title"
+             module="Codilar_Attribute"
+             sortOrder="50"
+             resource="Codilar_Attribute::main"
+        />
+        <add id="Codilar_Attribute::brand"
+             title="Brand Management"
+             translate="title"
+             module="Codilar_Attribute"
+             sortOrder="50"
+             resource="Codilar_Attribute::brand"
+             parent="Codilar_Attribute::main"
+        />
+        <add id="Codilar_Attribute::brand_list"
+             title="View All Brands"
+             translate="title"
+             module="Codilar_Attribute"
+             sortOrder="50"
+             resource="Codilar_Attribute::brand_list"
+             parent="Codilar_Attribute::brand"
+             action="vendor/index/index"
+        />
+        <add id="Codilar_Attribute::setting"
+             title="Setting"
+             translate="title"
+             module="Codilar_Attribute"
+             sortOrder="90"
+             resource="Codilar_Attribute::setting"
+             parent="Codilar_Attribute::main"/>
+        <add id="Codilar_Attribute::configuration"
+             title="Configuration"
+             translate="title"
+             module="Codilar_Attribute"
+             sortOrder="90"
+             resource="Codilar_Attribute::configuration"
+             parent="Codilar_Attribute::setting"
+             action="adminhtml/system_config/edit/section/module"/>
+<!--        <add id="Codilar::module_configuration"-->
+<!--             title="Module Configuration"-->
+<!--             translate="title"-->
+<!--             module="Codilar_Attribute"-->
+<!--             sortOrder="90"-->
+<!--             resource="Codilar_Attribute::module_configuration"-->
+<!--             parent="Codilar_Attribute::configuration"-->
+<!--             action="adminhtml/system_config/edit/section/module"/>-->
+
+    </menu>
+</config>
