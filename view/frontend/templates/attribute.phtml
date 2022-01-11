@@ -1,8 +1,10 @@
-<p style="color:limegreen;">Brand: <b>
+
         <?php
         /**
          * @var Codilar\Attribute\Block\Attribute $block
          **/
+        if ($block->getAttributeId()){
         $currentProduct = $block->getCurrentProduct();
-//        echo $currentProduct->getAttributeText('brand');
-        ?><a href="<?php echo $block->getBrandUrl() . 'id/' . $block->getAttributeId() ?>"> <?php echo $currentProduct->getAttributeText('brand') ?> </a>
+        $data = $block->getAttributeValue();
+        ?><p style="color:limegreen;">Brand: <b><a href="<?php echo $block->getBrandUrl() . 'id/' . $block->getAttributeId() ?>"> <?php echo $currentProduct->getAttributeText('brand') ?> </a>
+<?php } ?>

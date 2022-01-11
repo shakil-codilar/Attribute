@@ -14,12 +14,16 @@ use Magento\Framework\App\Action\Action;
  * @var \Magento\Framework\Escaper $escaper
  * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
-?>
+$data=$block->getBrandDetails();
+if ($data[0]){ ?>
+
+
 <?php
 $_productCollection = $block->getLoadedProductCollection();
 /** @var \Magento\Catalog\Helper\Output $_helper */
 $_helper = $block->getData('outputHelper');
 ?>
+
 <?php if (!count($_productCollection)): ?>
     <div class="message info empty">
         <div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
@@ -166,3 +170,7 @@ $_helper = $block->getData('outputHelper');
         </script>
     <?php endif; ?>
 <?php endif; ?>
+<?php }
+else { ?>
+<h3 style="color: red"><?php echo $data[1] ?> products are not available</h3>
+<?php } ?>

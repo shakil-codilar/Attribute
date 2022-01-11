@@ -29,6 +29,10 @@ use Magento\Catalog\Model\ProductRepository;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Catalog\Block\Product\Context;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Codilar\Attribute\Model\Brand;
+use Codilar\Attribute\Model\ResourceModel\Brand\CollectionFactory;
+use Codilar\Attribute\Model\BrandFactory as ModelFactory;
+use Codilar\Attribute\Model\ResourceModel\Brand as ResourceModel;
 /**
  * Product list
  * @api
@@ -42,6 +46,21 @@ class ProductBlock extends \Magento\Catalog\Block\Product\AbstractProduct implem
      *
      * @var string
      */
+
+
+    /**
+     * @var CollectionFactory
+     */
+    protected $collectionFactory;
+    /**
+     * @var ModelFactory
+     */
+    protected $modelFactory;
+
+    /**
+     * @var ResourceModel
+     */
+    protected $resourceModel;
     protected $_defaultToolbarBlock = Toolbar::class;
 
     /**
@@ -89,22 +108,29 @@ class ProductBlock extends \Magento\Catalog\Block\Product\AbstractProduct implem
      * @param OutputHelper|null $outputHelper
      */
     public function __construct(
-        Context $context,
-        PostHelper $postDataHelper,
-        Resolver $layerResolver,
+        Context                     $context,
+        PostHelper                  $postDataHelper,
+        Resolver                    $layerResolver,
         CategoryRepositoryInterface $categoryRepository,
-        Data $urlHelper,
-        ProductRepository $productRepository,
-        SearchCriteriaInterface $searchCriteriaInterface,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        array $data = [],
-        ?OutputHelper $outputHelper = null
-    ) {
+        Data                        $urlHelper,
+        CollectionFactory           $collectionFactory,
+        ModelFactory                $modelFactory,
+        ResourceModel               $resourceModel,
+        ProductRepository           $productRepository,
+        SearchCriteriaInterface     $searchCriteriaInterface,
+        SearchCriteriaBuilder       $searchCriteriaBuilder,
+        array                       $data = [],
+        ?OutputHelper               $outputHelper = null
+    )
+    {
         $this->_catalogLayer = $layerResolver->get();
         $this->_postDataHelper = $postDataHelper;
-        $this->productRepository=$productRepository;
-        $this->searchCriteriaInterface=$searchCriteriaInterface;
-        $this->searchCriteriaBuilder=$searchCriteriaBuilder;
+        $this->productRepository = $productRepository;
+        $this->collectionFactory = $collectionFactory;
+        $this->modelFactory = $modelFactory;
+        $this->resourceModel = $resourceModel;
+        $this->searchCriteriaInterface = $searchCriteriaInterface;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->categoryRepository = $categoryRepository;
         $this->urlHelper = $urlHelper;
         $data['outputHelper'] = $outputHelper ?? ObjectManager::getInstance()->get(OutputHelper::class);
@@ -395,7 +421,7 @@ class ProductBlock extends \Magento\Catalog\Block\Product\AbstractProduct implem
         return [
             'action' => $url,
             'data' => [
-                'product' => (int) $product->getEntityId(),
+                'product' => (int)$product->getEntityId(),
                 ActionInterface::PARAM_NAME_URL_ENCODED => $this->urlHelper->getEncodedUrl($url),
             ]
         ];
@@ -538,5 +564,20 @@ class ProductBlock extends \Magento\Catalog\Block\Product\AbstractProduct implem
         // set collection to toolbar and apply sort
         $toolbar->setCollection($collection);
         $this->setChild('toolbar', $toolbar);
+    }
+
+    public function getBrandDetails()
+    {
+        $id = $this->getRequest()->getParam('id');
+        $details = [];
+        $collection = $this->collectionFactory->create();
+        $datas = $collection->getItems();
+        foreach ($datas as $data) {
+            if ($data->getBrandId() == $id) {
+                array_push($details, $data->getIsActive());
+                array_push($details, $data->getName());
+                return $details;
+            }
+        }
     }
 }

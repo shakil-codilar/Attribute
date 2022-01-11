@@ -13,16 +13,35 @@ class Listing extends Action
      * @var PageFactory
      */
     protected $pageFactory;
+    /**
+     * @var \Magento\Framework\Controller\Result\ForwardFactory
+     */
+    protected $resultForwardFactory;
 
     public function __construct(
-        Context $context,
-        PageFactory $pageFactory,
-        \Codilar\Attribute\Helper\Data $helperData
+        Context                                             $context,
+        PageFactory                                         $pageFactory,
+        \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory,
+        \Codilar\Attribute\Helper\Data                      $helperData
     )
     {
         parent::__construct($context);
+        $this->resultForwardFactory = $resultForwardFactory;
         $this->pageFactory = $pageFactory;
-        $this->helperData=$helperData;
+        $this->helperData = $helperData;
+    }
+
+    protected function noProductRedirect()
+    {
+        $store = $this->getRequest()->getQuery('store');
+        if (isset($store) && !$this->getResponse()->isRedirect()) {
+            $resultRedirect = $this->resultRedirectFactory->create();
+            return $resultRedirect->setPath('');
+        } elseif (!$this->getResponse()->isRedirect()) {
+            $resultForward = $this->resultForwardFactory->create();
+            $resultForward->forward('noroute');
+            return $resultForward;
+        }
     }
 
     /**
@@ -33,11 +52,22 @@ class Listing extends Action
      */
     public function execute()
     {
-        if($this->helperData->isEnable()) {
+        if ($this->helperData->isEnable()) {
             return $this->pageFactory->create();
-        }
-        else{
-            return $this->resultRedirectFactory->create()->setPath('cms/noroute/index');
+        } else {
+            return $this->noProductRedirect();
         }
     }
 }
+
+//    public function execute()
+//    {
+//
+//        if($this->helperData->isEnable()) {
+//            return $this->pageFactory->create();
+//        }
+//        else{
+//            return $this->resultRedirectFactory->create()->setPath('cms/noroute/index');
+//        }
+//    }
+

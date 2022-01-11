@@ -44,6 +44,6 @@ class Save  extends \Magento\Backend\App\Action
         $this->resourceModel->save($updateBrand);
         $this->messageManager->addSuccessMessage(__('Record Successfuly Updated'));
 
-        return $resultRedirect->setPath('*/*/edit',['brand_id='>$id]);
+        return $resultRedirect->setPath('vendor/index/index');
     }
 }

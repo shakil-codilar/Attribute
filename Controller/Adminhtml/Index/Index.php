@@ -3,6 +3,7 @@
 namespace Codilar\Attribute\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\View\Result\PageFactory;
 
 class Index extends \Magento\Backend\App\Action
@@ -30,12 +31,14 @@ class Index extends \Magento\Backend\App\Action
 
     public function execute()
     {
-        if($this->helperData->isEnable()) {
+//        if($this->helperData->isEnable()) {
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $resultPage->getConfig()->getTitle()->prepend(__("Brand Mangement"));
             return $this->pageFactory->create();
-        }
-        else{
-            return $this->resultRedirectFactory->create()->setPath('cms/noroute/index');
-        }
+//        }
+//        else{
+//            return $this->resultRedirectFactory->create()->setPath('cms/noroute/index');
+//        }
 
     }
 }
