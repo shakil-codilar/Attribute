@@ -6,5 +6,7 @@
         if ($block->getAttributeId()){
         $currentProduct = $block->getCurrentProduct();
         $data = $block->getAttributeValue();
-        ?><p style="color:limegreen;">Brand: <b><a href="<?php echo $block->getBrandUrl() . 'id/' . $block->getAttributeId() ?>"> <?php echo $currentProduct->getAttributeText('brand') ?> </a>
+        $detail =$block->getBrandDetails();
+            ?><p style="color:limegreen;">Brand: <b><a href="<?php echo $block->getBrandUrl() . 'id/' . $block->getAttributeId() ?>"> <?php echo $currentProduct->getAttributeText('brand') ?> </a></p>
+            <p style="color:cornflowerblue;"><?php echo $detail[1]  ?></p>
 <?php } ?>

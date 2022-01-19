@@ -576,6 +576,7 @@ class ProductBlock extends \Magento\Catalog\Block\Product\AbstractProduct implem
             if ($data->getBrandId() == $id) {
                 array_push($details, $data->getIsActive());
                 array_push($details, $data->getName());
+                array_push($details, $data->getInfo());
                 return $details;
             }
         }

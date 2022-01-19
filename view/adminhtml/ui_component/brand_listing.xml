@@ -65,6 +65,30 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
+
+            <action name="enable">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to enable selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="vendor/index/massenable"/>
+                    <type>Enable</type>
+                    <label translate="true">Enable</label>
+                </settings>
+            </action>
+
+            <action name="disable">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to disable selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="vendor/index/massdisable"/>
+                    <type>Disable</type>
+                    <label translate="true">Disable</label>
+                </settings>
+            </action>
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>

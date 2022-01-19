@@ -8,6 +8,16 @@ use Magento\Framework\App\Action\Action;
 ?>
 <?php
 /**
+* Product list template
+*
+* @var $block \Codilar\Attribute\Block\ProductBlock
+* @var \Magento\Framework\Escaper $escaper
+* @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+*/
+?>
+
+<?php
+/**
  * Product list template
  *
  * @var $block \Codilar\Attribute\Block\ProductBlock
@@ -17,7 +27,9 @@ use Magento\Framework\App\Action\Action;
 $data=$block->getBrandDetails();
 if ($data[0]){ ?>
 
-
+    <h1><?php $data=$block->getBrandDetails();
+        echo $data[2];
+        ?></h1>
 <?php
 $_productCollection = $block->getLoadedProductCollection();
 /** @var \Magento\Catalog\Helper\Output $_helper */

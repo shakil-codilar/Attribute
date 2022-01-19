@@ -6,6 +6,8 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
+use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterface;
 
 class Listing extends Action
 {
@@ -52,6 +54,7 @@ class Listing extends Action
      */
     public function execute()
     {
+
         if ($this->helperData->isEnable()) {
             return $this->pageFactory->create();
         } else {
