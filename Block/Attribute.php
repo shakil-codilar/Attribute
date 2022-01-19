@@ -66,19 +66,7 @@ class Attribute extends Template
         }
         return $optId;
     }
-//    public function getAttributeValue()
-//    {
-//        $attributeCode='brand';
-//        $currentProduct=$this->getCurrentProduct();
-//        $text=$currentProduct->getAttributeText('brand');
-//        $product = $this->productFactory->create();
-//        $isAttrExist = $product->getResource()->getAttribute($attributeCode);
-//        $optId = '';
-//        if ($isAttrExist && $isAttrExist->usesSource()) {
-//            $optId = $isAttrExist->getSource()->getAllOptions($text);
-//        }
-//        return $optId;
-//    }
+
     public function getBrandDetails()
     {
         $id = $this->getAttributeId();
